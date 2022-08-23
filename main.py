@@ -12,4 +12,8 @@ bsize = int( len(eng) / 10 )
 for i in range(10) :
     av_eng[i] = sum( eng[bsize*i:bsize*(i+1)] ) / bsize
 
-
+x = np.linspace(1,10,10)
+plt.plot( x, av_eng, "ko")
+plt.xlabel("Index")
+plt.ylabel("Average energy / natural units")
+plt.savefig("graph.png")
