@@ -12,9 +12,10 @@ except:
 import unittest
 from main import *
 
+myeng = np.loadtxt("energies")[:,1]
 xvals = np.linspace( 1, 10, 10 )
 yvals = np.zeros(10)
-for i in range(10) : yvals[i] = sum( eng[i*100:(i+1)*100] ) / 100
+for i in range(10) : yvals[i] = sum( myeng[i*100:(i+1)*100] ) / 100
 line1, axislabels  = line(xvals,yvals), ["Index", "Average energy / natural units"]
 
 class UnitTests(unittest.TestCase) :
