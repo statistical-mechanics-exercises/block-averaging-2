@@ -1,13 +1,22 @@
+try:
+    import AutoFeedback.plotchecks as pc
+    from AutoFeedback.plotclass import line
+except:
+    import subprocess
+    import sys
+
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "AutoFeedback"])
+    import AutoFeedback.plotchecks as pc
+    from AutoFeedback.plotclass import line
+
 import unittest
-import scipy.stats as st
 from main import *
+
+xvals = np.linspace( 1, 10, 10 )
+yvals = np.zeros(10)
+for i in range(10) : yvals[i] = sum( eng[i*100:(i+1)*100] ) / 100
+line1, axislabels  = line(xvals,yvals), ["Index", "Energy / natural units"]
 
 class UnitTests(unittest.TestCase) :
     def test_energies(self) :
-        fighand=plt.gca()
-        figdat = fighand.get_lines()[0].get_xydata()
-        this_x, this_y = zip(*figdat)
-        self.assertTrue( len(this_y)==10, "Wrong number of energies in list for graph" )
-        for i in range(10) :
-            thisav = sum( eng[i*100:(i+1)*100] ) / 100 
-            self.assertTrue( np.abs( thisav - this_y[i] )<1e-7, "Incorrect values for block averages" )
+        assert( pc.check_plot([line1],explabels=axislabels,explegend=False,output=True) )

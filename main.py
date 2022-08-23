@@ -14,6 +14,8 @@ for i in range(10) :
 
 
 # This will draw a graph of your energies
-x = np.linspace( 1, 11, 10 )
+x = np.linspace( 1, 10, 10 )
 plt.plot( x, av_eng, 'ko')
+plt.xlabel("Index")
+plt.ylabel("Energy / natural units")
 plt.savefig( "block_averages.png")
